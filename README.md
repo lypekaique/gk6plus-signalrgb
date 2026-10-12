@@ -28,13 +28,32 @@ If the keys change colour, the protocol is confirmed and the plugin will work.
 ## Install the SignalRGB plugin
 
 1. Quit GK6+ (and disable it at startup) — two apps can't own the lighting at once.
-2. Copy `GK6Plus_104RGB.js` into SignalRGB's plugin folder:
+2. Put **`GK6Plus_104RGB.js`** into SignalRGB's plugin folder:
    `Documents\WhirlwindFX\Plugins\` (SignalRGB → **Devices → Add Custom Device /
-   open plugin folder** points you there).
+   open plugin folder** points you there). The only file SignalRGB needs is that
+   one `.js`.
 3. In SignalRGB, enable **Developer / "Add custom device"** if needed, then reload
    plugins (or restart SignalRGB). The keyboard shows up as **"GK6+ 104 RGB"**.
 4. Per-device options: **Lighting Mode** (Canvas = follow effects, Forced = one
    colour) and **Brightness**.
+
+### Pull it from GitHub as an add-on
+
+```powershell
+# one-time: grab just the plugin into SignalRGB's Plugins folder
+curl -L -o "$env:USERPROFILE\Documents\WhirlwindFX\Plugins\GK6Plus_104RGB.js" `
+  https://raw.githubusercontent.com/lypekaique/gk6plus-signalrgb/master/GK6Plus_104RGB.js
+```
+
+…or clone the whole repo somewhere and copy `GK6Plus_104RGB.js` over on each update:
+
+```powershell
+git clone https://github.com/lypekaique/gk6plus-signalrgb
+# then copy GK6Plus_104RGB.js into Documents\WhirlwindFX\Plugins\
+```
+
+To **update** later, re-run the `curl` line (or `git pull` + copy) and reload plugins
+in SignalRGB.
 
 ## Notes / tuning
 
