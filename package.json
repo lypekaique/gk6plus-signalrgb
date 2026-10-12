@@ -1,0 +1,14 @@
+{
+  "name": "gk6plus-signalrgb",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reverse-engineered GK6+ 104 RGB protocol: SignalRGB plugin + standalone validator",
+  "scripts": {
+    "test:cycle": "node test_gk6.mjs cycle",
+    "test:red": "node test_gk6.mjs red"
+  },
+  "dependencies": {
+    "node-hid": "^3.4.0"
+  }
+}
