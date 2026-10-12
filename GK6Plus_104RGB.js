@@ -71,7 +71,10 @@ function enterOnlineMode() {
 }
 
 function sendColors(overrideColor) {
-    const bright = Math.max(0, Math.min(100, Math.round(brightness)));
+    // NOTE: the firmware ignores the per-LED 4th byte, so brightness can only be
+    // applied by scaling R/G/B here (software dimming). It cannot exceed the
+    // keyboard's hardware master brightness — raise that with Fn + brightness-up.
+    const scale = Math.max(0, Math.min(100, Math.round(brightness))) / 100;
     const buf = new Array(BUF_LEN).fill(0);
 
     for (let i = 0; i < vLedPositions.length; i++) {
@@ -88,10 +91,10 @@ function sendColors(overrideColor) {
             r = c[0]; g = c[1]; b = c[2];
         }
         const slot = vLedIndexes[i] * 4;
-        buf[slot]     = r;
-        buf[slot + 1] = g;
-        buf[slot + 2] = b;
-        buf[slot + 3] = bright;
+        buf[slot]     = Math.round(r * scale);
+        buf[slot + 1] = Math.round(g * scale);
+        buf[slot + 2] = Math.round(b * scale);
+        buf[slot + 3] = 100; // constant, matches GK6+ (firmware ignores this byte)
     }
 
     // Stream the framebuffer in 56-byte chunks, then latch it.

@@ -72,8 +72,15 @@ colour and for software-rendered effects.
 2. **Build a framebuffer** of `132 LEDs × 4 bytes = 528 bytes`. Each LED is:
 
    ```
-   [ R, G, B, brightness ]      // brightness is 0..100, app hard-codes 100
+   [ R, G, B, brightness ]      // app hard-codes brightness = 100
    ```
+
+   > **Measured on 1EA7:0907:** the 4th byte is **ignored** by the firmware
+   > (100 vs 255 look identical). There is **no software master-brightness
+   > command** anywhere in the protocol — the full opcode table is in §3.
+   > Overall brightness is the keyboard's **hardware** level, changed only with
+   > the on-board **Fn + brightness** keys (it persists across power cycles).
+   > To dim in software, scale R/G/B yourself; you can't exceed the hardware level.
 
    The LED's slot is `LocationCode * 4` (see the layout file — e.g. Esc = 0, A = 67).
    Colours are plain 8-bit R/G/B; LEDs you don't set stay `00 00 00 00` (off).

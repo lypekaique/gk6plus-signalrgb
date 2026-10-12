@@ -60,6 +60,12 @@ in SignalRGB.
 - **LED layout** was extracted from GK6+'s own `keymap.js`. Positions are a 23×7 grid;
   the split-spacebar sub-LEDs sit on the bottom row. If any key looks off in the
   SignalRGB canvas, tweak its entry in `vLedPositions` inside the plugin.
+- **Colours look dim / not "100%"?** Overall brightness is the keyboard's *hardware*
+  level — raise it with **Fn + brightness-up** on the board (it's not something any
+  software, GK6+ included, can set; there's no brightness command in the protocol, and
+  the per-LED brightness byte is ignored by the firmware). Also check SignalRGB's global
+  brightness (top bar) and the device brightness are at 100%. The plugin's **Brightness**
+  slider dims R/G/B in software — it can only go *below* the hardware level, not above.
 - The board needs a **ping ~every 2 s** to stay in software mode; the plugin sends one
   from `Render()`.
 - Each frame is 10 `SetLEDefine` writes + 1 `SaveLEDefine`. If you see flicker on very
